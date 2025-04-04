@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 font-sans text-gray-900">
+    <!-- Title -->
+    <h2
+        class="text-4xl font-extrabold text-center mb-10 bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">
+        🎶 Trending Hits
+    </h2>
+
+    <!-- Search -->
+    <div class="flex justify-center mb-10">
+        <input type="text" id="searchInput" placeholder="Search for music..." onkeyup="filterMusic()"
+            class="w-full max-w-xl px-5 py-3 rounded-full shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-700 placeholder-gray-400 transition" />
+    </div>
+
+    {% if music %}
+    <!-- Music Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for song in music %}
+        <div
+            class="music-item bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 p-6 relative border border-gray-100">
+            <!-- Artist & Title -->
+            <div class="mb-4">
+                <p class="text-sm text-gray-500">{{ song['artist'] }}</p>
+                <h3 class="text-xl font-semibold text-gray-800">{{ song['title'] }}</h3>
+            </div>
+
+            <!-- Audio Player -->
+            <div>
+                <audio controls controlsList="nodownload noplaybackrate" disablePictureInPicture
+                    class="w-full mt-2 rounded-lg border border-gray-200 bg-white">
+                    <source src="{{ url_for('preview_music', song_id=song['id']) }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Buy Button -->
+            <form action="{{ url_for('buy_music', song_id=song['id']) }}" method="POST" class="mt-6">
+                <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl font-semibold transition">
+                    Buy for ${{ song['price'] / 100 }}
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-xl text-gray-500 mt-8">🎧 No music available at the moment.</p>
+    {% endif %}
+
+    <!-- Search Filtering Script -->
+    <script>
+        function filterMusic() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const musicItems = document.querySelectorAll('.music-item');
+
+            musicItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const artist = item.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchInput) || artist.includes(searchInput)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <!-- Title -->
+    <h2
+        class="text-4xl font-extrabold text-center mb-10 bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">
+        🎧 Your Purchased Music
+    </h2>
+
+    <!-- Search Box -->
+    <div class="flex justify-center mb-8">
+        <input type="text" id="searchInput" onkeyup="filterMusic()" placeholder="Search for music..."
+            class="w-full max-w-xl px-5 py-3 rounded-full shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-700 placeholder-gray-400 transition" />
+    </div>
+
+    {% if music %}
+    <div class="space-y-8">
+        {% for song in music %}
+        <div
+            class="music-item bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 p-6 border border-gray-100">
+            <!-- Header: Index, Title, Artist -->
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
+                <div class="text-lg text-indigo-500 font-bold">#{{ loop.index }}</div>
+                <div class="text-xl font-semibold text-gray-800 text-center sm:text-left">{{ song['title'] }}</div>
+                <div class="text-sm text-gray-500 text-center sm:text-right">{{ song['artist'] }}</div>
+            </div>
+
+            <!-- Audio Player -->
+            <audio controls class="w-full mt-2 rounded-lg border border-gray-200 bg-white">
+                <source src="{{ url_for('play_music', song_id=song['id']) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <!-- Download Button -->
+            <div class="mt-6 text-right">
+                <a href="{{ url_for('download_music', song_id=song['id']) }}"
+                    class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-2.5 rounded-full transition">
+                    ⬇ Download
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-xl text-gray-500 mt-12">🛒 You haven't purchased any music yet.</p>
+    {% endif %}
+
+    <!-- Search Script -->
+    <script>
+        function filterMusic() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const musicItems = document.querySelectorAll('.music-item');
+
+            musicItems.forEach(item => {
+                const title = item.querySelector('div.text-xl').textContent.toLowerCase();
+                const artist = item.querySelector('div.text-sm').textContent.toLowerCase();
+
+                if (title.includes(searchInput) || artist.includes(searchInput)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</div>
+{% endblock %}

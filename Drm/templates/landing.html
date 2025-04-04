@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-24">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-5xl font-extrabold mb-4">Welcome to MusicApp 🎵</h2>
+        <p class="text-xl mb-8">Manage, secure, and enjoy your music collection with ease.</p>
+        <div>
+            <a href="{{ url_for('login') }}"
+                class="bg-white text-indigo-600 hover:bg-gray-100 px-6 py-3 rounded-full text-lg font-semibold transition">Login</a>
+            <a href="{{ url_for('register') }}"
+                class="ml-4 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold transition">Register</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-14">🚀 Features You'll Love</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <h4 class="text-2xl font-semibold mb-3">🎶 Music Upload</h4>
+                <p class="text-gray-600">Add your favorite tracks easily and store them in a secure digital library.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <h4 class="text-2xl font-semibold mb-3">🔒 Quantum Encryption</h4>
+                <p class="text-gray-600">Keep your music ultra-secure with next-generation encryption technology.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <h4 class="text-2xl font-semibold mb-3">📁 Music Management</h4>
+                <p class="text-gray-600">Create playlists, manage your tracks, and enjoy seamless access anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-14">⚙️ How It Works</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="bg-blue-50 p-8 rounded-2xl shadow-lg">
+                <h4 class="text-xl font-semibold mb-3">📝 Step 1: Create Account</h4>
+                <p class="text-gray-700">Sign up quickly and get access to your personal music dashboard.</p>
+            </div>
+            <div class="bg-blue-50 p-8 rounded-2xl shadow-lg">
+                <h4 class="text-xl font-semibold mb-3">📤 Step 2: Upload Music</h4>
+                <p class="text-gray-700">Drag and drop your music files—our system handles them all securely.</p>
+            </div>
+            <div class="bg-blue-50 p-8 rounded-2xl shadow-lg">
+                <h4 class="text-xl font-semibold mb-3">🎧 Step 3: Enjoy!</h4>
+                <p class="text-gray-700">Stream, manage, and groove to your collection anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-14">💬 What Our Users Say</h3>
+        <div class="flex flex-wrap justify-center gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-md max-w-xs">
+                <p class="text-lg mb-4 italic">"Seamless upload experience and the playlist feature is my favorite!"</p>
+                <h5 class="text-xl font-semibold">Alice Johnson</h5>
+                <p class="text-gray-500 text-sm">Music Enthusiast</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-md max-w-xs">
+                <p class="text-lg mb-4 italic">"Encryption is next level. I know my music is safe here."</p>
+                <h5 class="text-xl font-semibold">Mark Turner</h5>
+                <p class="text-gray-500 text-sm">DJ & Producer</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-md max-w-xs">
+                <p class="text-lg mb-4 italic">"Super clean UI and finding tracks is a breeze. Love it!"</p>
+                <h5 class="text-xl font-semibold">Jessica Lee</h5>
+                <p class="text-gray-500 text-sm">Music Lover</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20">
+    <div class="max-w-6xl mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-4">🎵 Ready to Start Your Music Journey?</h3>
+        <p class="text-lg mb-8">Sign up now and step into the future of music storage and security.</p>
+        <a href="{{ url_for('register') }}"
+            class="bg-white text-purple-700 hover:bg-gray-100 px-8 py-3 rounded-full text-lg font-semibold transition">Get
+            Started</a>
+    </div>
+</section>
+
+{% endblock %}

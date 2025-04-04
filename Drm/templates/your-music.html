@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="text-4xl font-bold mb-6 text-center text-gray-900">Yours Audios Collection</h2>
+
+
+    <div class="flex justify-center mt-6">
+        <a href="{{ url_for('upload_music') }}" class="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-full shadow-lg text-lg transition-all duration-200 hover:bg-blue-700 hover:shadow-xl">
+            Upload New Music
+        </a>
+    </div>
+
+    <!-- Search Box -->
+    <div class="flex justify-center mb-6">
+        <input 
+            type="text" 
+            id="searchInput" 
+            class="w-1/2 p-3 rounded-lg border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search for music..." 
+            onkeyup="filterMusic()"
+        />
+    </div>
+    
+
+    {% if music %}
+        <div class="space-y-8">
+            {% for song in music %}
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 music-item">
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- Index Number -->
+                        <span class="text-xl text-gray-700 font-semibold">{{ loop.index }}.</span>
+                        <strong class="text-xl text-gray-800 font-semibold">{{ song['title'] }}</strong>
+                        <span class="text-sm text-gray-500">{{ song['artist'] }}</span>
+                    </div>
+
+                    <!-- Custom Audio Player -->
+                    <div class="mt-4">
+                        <audio controls class="w-full h-10 bg-gray-100 rounded-lg">
+                            <source src="{{ url_for('play_music', song_id=song['id']) }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-xl text-gray-600 mt-8">There is no audio available.</p>
+    {% endif %}
+
+    <!-- JavaScript for Search Filter -->
+    <script>
+        function filterMusic() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const musicItems = document.querySelectorAll('.music-item');
+            
+            musicItems.forEach(item => {
+                const title = item.querySelector('strong').textContent.toLowerCase();
+                const artist = item.querySelector('span.text-sm').textContent.toLowerCase();
+                
+                if (title.includes(searchInput) || artist.includes(searchInput)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    
+{% endblock %}
